@@ -1,4 +1,4 @@
-FROM androidsdk:jdk8-alpine
+FROM boolivar/androidsdk:jdk8-alpine
 
 ARG ANDROID_BUILD_TOOLS=26.0.3
 
