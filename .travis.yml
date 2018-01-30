@@ -1,0 +1,13 @@
+sudo: required
+language: java
+services: docker
+
+env:
+  - ANDROID_BUILD_TOOLS=26.0.3
+  - ANDROID_BUILD_TOOLS=27.0.3
+
+before_install: cd build-tools-jdk8-alpine
+
+install: true
+
+script: docker build -t "androidsdk:${ANDROID_BUILD_TOOLS}-jdk8-alpine" .
