@@ -10,8 +10,8 @@ before_install: cd build-tools-jdk8-alpine
 
 install: true
 
-script: docker build --build-arg "ANDROID_BUILD_TOOLS=${ANDROID_BUILD_TOOLS}" -t "androidsdk:${ANDROID_BUILD_TOOLS}-jdk8-alpine" .
+script: docker build --build-arg "ANDROID_BUILD_TOOLS=${ANDROID_BUILD_TOOLS}" -t "${DOCKER_USERNAME}/androidsdk:${ANDROID_BUILD_TOOLS}-jdk8-alpine" .
 
 after_success:
-  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
-  - docker push "$DOCKER_USERNAME"/"androidsdk:${ANDROID_BUILD_TOOLS}-jdk8-alpine"
+  - docker login -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}"
+  - docker push "${DOCKER_USERNAME}/androidsdk:${ANDROID_BUILD_TOOLS}-jdk8-alpine"
