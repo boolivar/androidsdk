@@ -7,7 +7,7 @@ jobs:
     - stage: "base"
       before_install: cd jdk8-alpine
       install: true
-      script: docker build -t "${DOCKER_USERNAME}/androidsdk:jdk8-alpine" . && ../docker-build.sh jdk8-alpine"
+      script: docker build -t ${DOCKER_USERNAME}/androidsdk:jdk8-alpine . && ../docker-build.sh jdk8-alpine
     - stage: "build-tools"
       script: cd build-tools-jdk8-alpine && docker-build.sh 3859397 26.0.3 && docker-push.sh 26.0.3-jdk-alpine
     - script: cd build-tools-jdk8-alpine && docker-build.sh 3859397 27.0.3 && docker-push.sh 27.0.3-jdk-alpine
