@@ -2,16 +2,12 @@ sudo: required
 language: java
 services: docker
 
-env:
-  - ANDROID_BUILD_TOOLS=26.0.3
-  - ANDROID_BUILD_TOOLS=27.0.3
-
-before_install: cd build-tools-jdk8-alpine
-
-install: true
-
-script: docker build --build-arg "ANDROID_BUILD_TOOLS=${ANDROID_BUILD_TOOLS}" -t "${DOCKER_USERNAME}/androidsdk:${ANDROID_BUILD_TOOLS}-jdk8-alpine" .
-
-after_success:
-  - docker login -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}"
-  - docker push "${DOCKER_USERNAME}/androidsdk:${ANDROID_BUILD_TOOLS}-jdk8-alpine"
+jobs:
+  include:
+    - stage: "base"
+      before_install: cd jdk8-alpine
+      install: true
+      script: docker build -t "${DOCKER_USERNAME}/androidsdk:jdk8-alpine" . && ../docker-build.sh jdk8-alpine"
+    - stage: "build-tools"
+      script: cd build-tools-jdk8-alpine && docker-build.sh 3859397 26.0.3 && docker-push.sh 26.0.3-jdk-alpine
+    - script: cd build-tools-jdk8-alpine && docker-build.sh 3859397 27.0.3 && docker-push.sh 27.0.3-jdk-alpine
